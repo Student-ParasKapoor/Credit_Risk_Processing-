@@ -70,18 +70,6 @@ pyspark_credit_risk_pipeline/
 
 ## 📊 Risk Metrics Implemented
 
-customer_id
-
-report_month
-
-outstanding_balance
-
-default_flag
-
-days_past_due
-
-product_type
-
 ### 1️⃣ Monthly Portfolio Exposure
 
 Aggregates total outstanding balance per month
