@@ -51,17 +51,24 @@ pyspark_credit_risk_pipeline/
     ├── transform.py
     ├── validate.py
 ```
-##📥 Data Ingestion
+## 📥 Data Ingestion
 
-Raw loan-level data is ingested from CSV using PySpark
+- Raw loan-level data is ingested from CSV using **PySpark**
+- Schema is inferred automatically
+- Each row represents **one loan in one reporting month**
 
-Schema is inferred automatically
+**Key columns:**
+- `loan_id`
+- `customer_id`
+- `report_month`
+- `outstanding_balance`
+- `default_flag`
+- `days_past_due`
+- `product_type`
 
-Each row represents one loan in one reporting month
+---
 
-Key columns:
-
-loan_id
+## 📊 Risk Metrics Implemented
 
 customer_id
 
@@ -84,104 +91,93 @@ Represents overall portfolio exposure
 
 2️⃣ Monthly Default Rate
 
+### 2️⃣ Monthly Default Rate
 Calculated as:
-
 defaulted_loans / total_loans
 
+- Based on loan-level default flag
 
-Based on loan-level default flag
+### 3️⃣ Monthly Delinquency Rate (DPD > 30)
+- Measures early-stage credit risk  
+- Flags loans with `days_past_due > 30`
 
-3️⃣ Monthly Delinquency Rate (DPD > 30)
+---
 
-Measures early-stage credit risk
+## ✅ Data Quality & Validation
 
-Flags loans with days_past_due > 30
-
-✅ Data Quality & Validation
-🔹 Duplicate Detection
-
-Identifies duplicate records using:
-
+### 🔹 Duplicate Detection
+- Identifies duplicate records using:
 loan_id + report_month
 
+- Records are **flagged, not deleted**
 
-Records are flagged, not deleted
-
-🔹 Null Checks
-
+### 🔹 Null Checks
 Flags records with null values in critical fields:
+- `loan_id`
+- `customer_id`
+- `report_month`
+- `outstanding_balance`
+- `default_flag`
 
-loan_id
+### 🔹 Missing Month Validation
+- Performs loan-level time-series completeness checks
+- Generates expected months between first and last reporting period
+- Detects gaps using left joins
+- Prevents false positives by respecting loan lifecycle
 
-customer_id
+---
 
-report_month
+## 💾 Output Persistence
 
-outstanding_balance
+- Clean metrics and exception datasets are written separately
 
-default_flag
+**Output formats:**
+- **Parquet** (recommended for Linux / production environments)
+- **CSV** (can be used for local Windows execution)
 
-🔹 Missing Month Validation
+> ⚠️ **Note:** On Windows systems, Spark may require additional Hadoop configuration (`winutils.exe`) for Parquet writes.  
+> This limitation does not apply to Linux-based Spark clusters used in production.
 
-Performs loan-level time-series completeness checks
+---
 
-Generates expected months between first and last reporting period
+## ▶️ How to Run
 
-Detects gaps using left joins
-
-Prevents false positives by respecting loan lifecycle
-
-💾 Output Persistence
-
-Clean metrics and exception datasets are written separately
-
-Output formats:
-
-Parquet (recommended for Linux / production environments)
-
-CSV (can be used for local Windows execution)
-
-⚠️ Note: On Windows systems, Spark may require additional Hadoop configuration (winutils.exe) for Parquet writes.
-This limitation does not apply to Linux-based Spark clusters used in production.
-
-▶️ How to Run
-1️⃣ Activate virtual environment
+### 1️⃣ Activate virtual environment
+```bash
 venv\Scripts\activate
-
-2️⃣ Run transformations
+```
+### 2️⃣ Run transformations
+```bash
 python src/transform.py
-
-3️⃣ Run validations
+```
+### 3️⃣ Run validations
+```bash
 python src/validate.py
+```
+---
 
-🧠 Key Concepts Demonstrated
+## 🧠 Key Concepts Demonstrated
 
-Distributed data processing with Spark
+- Distributed data processing with Spark
+- Lazy evaluation
+- Time-series aggregation
+- Loan-level vs portfolio-level analytics
+- Data quality validation in regulated environments
+- Separation of clean outputs and exception datasets
 
-Lazy evaluation
+---
 
-Time-series aggregation
+## 🚀 Future Enhancements
 
-Loan-level vs portfolio-level analytics
+- Customer-level aggregation
+- Cloud storage integration (S3 / ADLS)
+- Pipeline orchestration and scheduling
+- Monitoring and alerting for data quality
+- Unit tests for validation logic
 
-Data quality validation in regulated environments
+---
+## 👤 Author
 
-Separation of clean outputs and exception datasets
-
-🚀 Future Enhancements
-
-Customer-level aggregation
-
-Cloud storage integration (S3 / ADLS)
-
-Pipeline orchestration and scheduling
-
-Monitoring and alerting for data quality
-
-Unit tests for validation logic
-
-👤 Author
-
-Your Name
-Data / Risk Analytics
+**Your Name**  
+Data / Risk Analytics  
 Python | PySpark | SQL
