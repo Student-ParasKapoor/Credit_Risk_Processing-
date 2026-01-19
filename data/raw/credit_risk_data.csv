@@ -1,0 +1,7 @@
+loan_id,customer_id,report_month,outstanding_balance,default_flag,days_past_due,product_type
+L001,C101,2023-01,500000,0,0,Home
+L001,C101,2023-02,495000,0,0,Home
+L001,C101,2023-03,490000,0,0,Home
+L002,C102,2023-01,200000,1,90,Personal
+L002,C102,2023-02,195000,1,120,Personal
+L003,C103,2023-02,300000,0,15,Auto
