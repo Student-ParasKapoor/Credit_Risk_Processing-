@@ -50,7 +50,8 @@ pyspark_credit_risk_pipeline/
     ├── ingest.py
     ├── transform.py
     ├── validate.py
-📥 Data Ingestion
+```
+##📥 Data Ingestion
 
 Raw loan-level data is ingested from CSV using PySpark
 
@@ -74,8 +75,8 @@ days_past_due
 
 product_type
 
-📊 Risk Metrics Implemented
-1️⃣ Monthly Portfolio Exposure
+##📊 Risk Metrics Implemented
+#1️⃣ Monthly Portfolio Exposure
 
 Aggregates total outstanding balance per month
 
