@@ -82,14 +82,11 @@ days_past_due
 
 product_type
 
-##📊 Risk Metrics Implemented
-#1️⃣ Monthly Portfolio Exposure
+### 1️⃣ Monthly Portfolio Exposure
 
 Aggregates total outstanding balance per month
 
 Represents overall portfolio exposure
-
-2️⃣ Monthly Default Rate
 
 ### 2️⃣ Monthly Default Rate
 Calculated as:
@@ -178,6 +175,6 @@ python src/validate.py
 ---
 ## 👤 Author
 
-**Your Name**  
+**Paras Kapoor**  
 Data / Risk Analytics  
 Python | PySpark | SQL
